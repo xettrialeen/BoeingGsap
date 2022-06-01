@@ -1,0 +1,43 @@
+@use "../abstracts/abstract__helpers" as *;
+@use "../base/base__helpers" as *;
+
+header {
+  width: 100%;
+  display: none;
+  @include flex-row;
+  justify-content: space-between;
+  padding: 27px 50px;
+  // position: fixed;
+  top: 0;
+  z-index: 100;
+
+  .header__logo {
+    svg {
+      width: 53px;
+      height: 53px;
+    }
+  }
+  .header__buttons {
+    button {
+      @include same-hw(44px);
+      outline: none;
+      @include radius(15px);
+      background-color: $primary--1;
+      color: $white;
+      border: none;
+     
+
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      svg {
+        @include same-hw(29px);
+        stroke-width: 2.4px;
+      }
+      &:nth-child(1) {
+        padding-left: 5px;
+        margin-right: 12px;
+      }
+    }
+  }
+}

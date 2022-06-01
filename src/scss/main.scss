@@ -8,8 +8,10 @@
 
 //todo from layouts
 
+@use  "./layouts/layouts__helper" as *;
+
 //todo from Components
 @use "./components/components__helpers" as *;
 
 // todo from home
-// @use "./pages/pages__helpers" as *;
+@use "./pages/page__helper" as *;

@@ -1,0 +1,58 @@
+@use "../abstracts/abstract__helpers" as *;
+@use "../base/base__helpers" as *;
+
+.main__container {
+  &__wrapper {
+    position: relative;
+  }
+
+  .chapter__one {
+    height: 500vh;
+    width: 100%;
+  }
+
+  .chaptermid__title {
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    color: $white;
+    z-index: 30;
+    @include radius(50%);
+    left: 50%;
+    right: 50%;
+    //top: 0px;
+    bottom: 2%;
+    font-size: 36px;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+  }
+
+  .chapter__two {
+    position: fixed;
+    overflow: hidden;
+    bottom: -30%;
+    background-color: $secondary--1;
+    width: 243px;
+    height: 243px;
+    z-index: 2;
+    @include radius(50%);
+    left: 50%;
+    right: 50%;
+    z-index: -2;
+
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+  }
+}
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}

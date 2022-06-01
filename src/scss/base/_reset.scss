@@ -1,5 +1,7 @@
 @use './typography' as *;
 
+@use '../abstracts/variables' as *;
+
 *{
     margin: 0;
     padding: 0;
@@ -48,11 +50,12 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 html,body{
-  overflow-x: hidden;
+  // overflow-x: hidden;
 
 }
 body{
-  overflow: hidden;
+  // overflow: hidden;
+  background-color: $tertiary;
 }
 
 
