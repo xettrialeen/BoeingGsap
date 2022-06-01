@@ -1,14 +1,19 @@
 @use "../abstracts/abstract__helpers" as *;
 @use "../base/base__helpers" as *;
+body{
+  background-color: $tertiary;
+}
 
 .main__container {
+  
   &__wrapper {
     position: relative;
   }
 
   .chapter__one {
-    height: 500vh;
+    height: 2000vh;
     width: 100%;
+   
   }
 
   .chaptermid__title {

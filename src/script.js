@@ -20,10 +20,7 @@ const tl = gsap.timeline();
  * Debug
  */
 
-const gui = new dat.GUI({
-
-});
-
+const gui = new dat.GUI({});
 
 const canvas = document.querySelector(".webgl");
 
@@ -63,11 +60,11 @@ scene.add(directionalLight);
  * Lading plane Mesh
  */
 
-let scrollY = window.scrollY;
-window.addEventListener("scroll", () => {
-  scrollY = window.scrollY;
-  console.log(scrollY / window.innerHeight);
-});
+// let scrollY = window.scrollY;
+// window.addEventListener("scroll", () => {
+//   scrollY = window.scrollY;
+//   console.log(scrollY / window.innerHeight);
+// });
 
 const loader = new GLTFLoader();
 const texture = new THREE.TextureLoader();
@@ -78,7 +75,8 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
     "./plane/scene.gltf",
     (model) => {
       let plane = model.scene;
-
+      let plane2 = model.scene.clone();
+      console.log(plane2);
       // adding Material
       plane.traverse((data) => {
         data.material = new THREE.MeshLambertMaterial({
@@ -86,7 +84,14 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           // map: texture,
         });
       });
+      plane2.traverse((data) => {
+        data.material = new THREE.MeshLambertMaterial({
+          color: "#595365",
+          wireframe: true,
+        });
+      });
       plane.position.y = -113;
+      plane2.position.y = -113;
 
       // using scroll trigger in plane
 
@@ -99,7 +104,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           markers: true,
         },
         x: -2,
-      })
+      });
       tl.to(plane.rotation, {
         scrollTrigger: {
           trigger: ".chapter__one",
@@ -109,21 +114,16 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           markers: true,
         },
         z: -2,
-      })      
-      .to(
-        plane.position,
-        {
-          scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "0",
-            end: "bottom",
-            scrub: 3,
-            markers: true,
-          },
-          y: 4000,
+      }).to(plane.position, {
+        scrollTrigger: {
+          trigger: ".chapter__one",
+          start: "0",
+          end: "bottom",
+          scrub: 3,
+          markers: true,
         },
-     
-      );
+        y: 4000,
+      });
       // debug
       gui.add(plane.position, "x", -1200, 1200, 1).name("plane position x");
       gui.add(plane.position, "y", -1200, 1200, 1).name("plane position y");
@@ -131,6 +131,104 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       gui.add(plane.rotation, "x", -360, 360, 3).name("plane rotation x");
       gui.add(plane.rotation, "y", -360, 360, 3).name("plane rotation y");
       gui.add(plane.rotation, "z", -360, 360, 3).name("plane rotation z");
+
+      plane2.position.x = 741;
+      plane2.position.z = 25000;
+      plane2.rotation.z = 19.5;
+
+      tl.to(
+        plane2.position,
+        {
+          scrollTrigger: {
+            trigger: ".chapter__one",
+            start: "1500",
+            end: "4000",
+            scrub: 3,
+            markers: true,
+            autoAlpha:0
+
+          },
+          z: -2500,
+        },
+        " <+3"
+      );
+
+      tl.to(
+        plane2.rotation,
+        {
+          scrollTrigger: {
+            trigger: ".chapter__one",
+            start: "1500",
+            end: "3000",
+            scrub: 3,
+            markers: true,
+          },
+          y: -1,
+        },
+        " >=3"
+      )
+      .to(
+        plane2.position,
+        {
+          scrollTrigger: {
+            trigger: ".chapter__one",
+            start: "1500",
+            end: "9000",
+            scrub: 3,
+            markers: true,
+          },
+          z: -25000,
+        },
+        ">=3"
+      ) 
+      .to(
+        plane2.position,
+        {
+          scrollTrigger: {
+            trigger: ".chapter__one",
+            start: "1500",
+            end: "9000",
+            scrub: 3,
+            markers: true,
+          },
+          x: 168,
+        },
+        ">=3"
+      ) ;
+       tl.to(
+        plane2.rotation,
+        {
+          scrollTrigger: {
+            trigger: ".chapter__one",
+            start: "1500",
+            end: "10000",
+            scrub: 3,
+            markers: true,
+          },
+          y: -2,
+        },
+        " >=3"
+      );
+      // plane2
+      gui
+        .add(plane2.position, "x", -1200, 1200, 0.000000000001)
+        .name("plane2 position x");
+      gui
+        .add(plane2.position, "y", -1200, 1200, 0.000000000001)
+        .name("plane2 position y");
+      gui
+        .add(plane2.position, "z", -25000, 25000, 0.000000000001)
+        .name("plane2 position z");
+
+      gui
+        .add(plane2.rotation, "x", -360, 360, 0.000000000001)
+        .name("plane2 rotation x");
+      gui
+        .add(plane2.rotation, "y", -360, 360, 0.000000000001)
+        .name("plane2 rotation y");
+      gui
+        .add(plane2.rotation, "z", -360, 360, 0.000000000001)
+        .name("plane2 rotation z");
       // debug
 
       // animating position
@@ -148,6 +246,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       //  adding to scene
 
       scene.add(plane);
+      scene.add(plane2);
     }
   );
 });
@@ -177,20 +276,20 @@ const camera = new THREE.PerspectiveCamera(2, size.width / size.height, 10, 0);
 camera.position.z = 35000;
 camera.position.y = -255;
 
-tl.to(
-  camera.position,
-  {
-    scrollTrigger: {
-      trigger: ".chapter__one",
-      start: "0",
-      end: "bottom",
-      scrub: 3,
-      markers: true,
-    },
-    z: 4000,
-  },
-  "0"
-)
+// tl.to(
+//   camera.position,
+//   {
+//     scrollTrigger: {
+//       trigger: ".chapter__one",
+//       start: "0",
+//       end: "bottom",
+//       scrub: 3,
+//       markers: true,
+//     },
+//     z: 4000,
+//   },
+//   "0"
+// );
 
 gui.add(camera.position, "y", -360, 360, 3).name("Camera postion y");
 gui.add(camera.position, "x", -360, 360, 3).name("Camera postion y");

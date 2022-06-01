@@ -260,11 +260,15 @@ header .header__buttons button:nth-child(1) {
   margin-right: 12px;
 }
 
+body {
+  background-color: #F4EEE6;
+}
+
 .main__container__wrapper {
   position: relative;
 }
 .main__container .chapter__one {
-  height: 500vh;
+  height: 2000vh;
   width: 100%;
 }
 .main__container .chaptermid__title {
