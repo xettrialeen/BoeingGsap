@@ -141,25 +141,25 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
         {
           scrollTrigger: {
             trigger: ".chapter__one",
-            start: "1500",
-            end: "4000",
-            scrub: 3,
+            start: "3000",
+            end: "bottom ",
+            scrub: 1,
             markers: true,
-            autoAlpha:0
+            
 
           },
           z: -2500,
         },
         " <+3"
-      );
+      )
 
-      tl.to(
+     .to(
         plane2.rotation,
         {
           scrollTrigger: {
             trigger: ".chapter__one",
-            start: "1500",
-            end: "3000",
+            start: "2000",
+            end: "bottom",
             scrub: 3,
             markers: true,
           },
@@ -172,14 +172,14 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
         {
           scrollTrigger: {
             trigger: ".chapter__one",
-            start: "1500",
-            end: "9000",
-            scrub: 3,
+            start: "bottom",
+         
+            scrub: 1,
             markers: true,
           },
           z: -25000,
         },
-        ">=3"
+        ">=6"
       ) 
       .to(
         plane2.position,
@@ -187,7 +187,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           scrollTrigger: {
             trigger: ".chapter__one",
             start: "1500",
-            end: "9000",
+            end: "bottom",
             scrub: 3,
             markers: true,
           },
@@ -200,14 +200,14 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
         {
           scrollTrigger: {
             trigger: ".chapter__one",
-            start: "1500",
-            end: "10000",
+            start: "9000",
+            end: "bottom",
             scrub: 3,
             markers: true,
           },
           y: -2,
         },
-        " >=3"
+        " <=3"
       );
       // plane2
       gui
