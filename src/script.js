@@ -1,0 +1,145 @@
+import './scss/main.css'
+import * as THREE from "three";
+import gsap from "gsap";
+
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as dat from "dat.gui";
+
+/**
+ * Debug
+ */
+
+const gui = new dat.GUI();
+
+const canvas = document.querySelector(".webgl");
+
+console.log(THREE);
+
+////////////////////////////////////////////////////////////////////////////
+// END OF DEBUG
+////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * creating scene
+ */
+const scene = new THREE.Scene();
+
+////////////////////////////////////////////////////////////////////////////
+// END OF SCENE
+////////////////////////////////////////////////////////////////////////////
+
+
+
+/**
+ * Geometry
+ */
+const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({
+  color: "red",
+});
+
+
+////////////////////////////////////////////////////////////////////////////
+// END OF GEOMETRY
+////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * Mesh
+ */
+
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
+
+
+////////////////////////////////////////////////////////////////////////////
+// END OF MESH
+////////////////////////////////////////////////////////////////////////////
+
+
+// todo size
+const size = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+////////////////////////////////////////////////////////////////////////////
+// END OF SIZE
+////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * camera
+ */
+
+const camera = new THREE.PerspectiveCamera(75, size.width/ size.height);
+camera.position.z = 2;
+
+
+
+window.addEventListener("resize", () => {
+  // resize canvas
+
+  size.width = window.innerWidth;
+  size.height = window.innerHeight;
+  //   update camera
+  camera.aspect = size.width / size.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(size.width, size.height);
+});
+
+////////////////////////////////////////////////////////////////////////////
+// END OF CAMERA
+////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * Renderer
+ */
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  alpha:true
+});
+scene.add(camera);
+
+////////////////////////////////////////////////////////////////////////////
+// END OF RENDERER
+////////////////////////////////////////////////////////////////////////////
+
+
+// controlss
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+renderer.setSize(size.width, size.height);
+renderer.render(scene, camera);
+
+
+////////////////////////////////////////////////////////////////////////////
+// END OF CONTROLS
+////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * Animation
+ */
+
+const clock = new THREE.Clock();
+
+const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  controls.update();
+  // mesh.rotation.x= elapsedTime;
+  renderer.render(scene, camera);
+  window.requestAnimationFrame(animate);
+};
+
+animate();
+
+////////////////////////////////////////////////////////////////////////////
+// END OF ANIMATION
+////////////////////////////////////////////////////////////////////////////

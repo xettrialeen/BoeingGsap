@@ -1,0 +1,45 @@
+
+
+$poppins: "Poppins", sans-serif;
+
+.typo {
+  // todo this is typography with scss
+  // *** Extra large
+  &--1 {
+    font-size: 67.8px;
+  }
+  &--2 {
+    font-size: 41.9px;
+  }
+  &--3 {
+    font-size: 25.9px;
+  }
+  &--4 {
+    font-size: 16px;
+  }
+  &--5 {
+    font-size: 9.9px;
+  }
+  &__misc--1{
+    font-size: 20px;
+  }
+
+  &__misc--2{
+    font-size: 48px;
+  }
+  &__misc--3{
+    font-size: 44px;
+  }
+  &__misc--4{
+    font-size: 24px;
+  }
+  &__misc--5{
+    font-size: 18px;
+  }
+  &__misc--6{
+    font-size: 28px;
+  }
+  &__heading{
+    font-size: 40px;
+  }
+}
