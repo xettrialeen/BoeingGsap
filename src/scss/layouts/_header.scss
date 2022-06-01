@@ -3,11 +3,11 @@
 
 header {
   width: 100%;
-  display: none;
+  // display: none;
   @include flex-row;
   justify-content: space-between;
   padding: 27px 50px;
-  // position: fixed;
+  position: fixed;
   top: 0;
   z-index: 100;
 
