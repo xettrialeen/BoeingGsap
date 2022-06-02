@@ -8,7 +8,7 @@
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     // border: 1px solid rgb(248, 123, 123);
-    font-family:$poppins,'Times New Roman', Times, serif;
+    font-family:'Times New Roman';
     // user-select: none;
    /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -58,7 +58,9 @@ body{
   background-color: $tertiary;
 }
 
-
+::-webkit-scrollbar {
+  display: none;
+}
 
 
 

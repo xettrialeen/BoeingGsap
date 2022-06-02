@@ -10,10 +10,26 @@
 
 <body>
 
+    <!-- mouse movement through cursor -->
+    <div id="circle"></div>
 
 
     <div class="main__container">
+
+        <div class="menu">
+            <div class="menu__container">
+                <nav class="menu__item">
+                   <ul>
+                       <li class="active">Home</li>
+                       <li>About</li>
+                       <li>work</li>
+                       <li>Contact</li>
+                   </ul>
+                </nav>
+            </div>
+        </div>
         <div class="main__container__wrapper">
+          
 
             <header>
                 <div class="header__logo">
@@ -29,23 +45,42 @@
 
                 </div>
                 <div class="header__buttons">
-                    <button><i data-feather="volume-1"></i></button>
-                    <button><i data-feather="menu"></i></button>
+                    <button class="notification"><i data-feather="volume-1"></i></button>
+                    <button class="notification menuBtn"><i data-feather="menu"></i></button>
                 </div>
             </header>
-            <div class="chapter__one">
-                <canvas class="webgl"></canvas>
+
+            <div class="main__content">
+            <!-- content starts  from here -->
+            <canvas class="webgl"></canvas>
+            <!-- scrollOne -->
+            <div class="scroll__one">
+            </div>
+            <div class="scroll__two"></div>
+
+
+            <!-- frames -->
+            <div class="frame__two">
             </div>
             <h2 class="chaptermid__title">Explore</h2>
-            <div class="chapter__two">
-              
+            <div class="chapter__one">
+                <div class="chapter__one__title">
+                    <h3 class="chapter__one__line__h3">Get</h3>
+                    <span class="chapter__one__line">Ready</span>
+                    <span class="chapter__one__line">To</span>
+                    <span class="chapter__one__line">Take OFF</span>
+
+                </div>
             </div>
+        </div>
         </div>
     </div>
 
     <script>
         feather.replace()
-      </script>
+    </script>
+
+    <script type="module" src="./js/sound.js"></script>
 </body>
 
 </html>

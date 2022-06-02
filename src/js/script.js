@@ -1,4 +1,4 @@
-import "./scss/main.css";
+import "../scss/main.css";
 import * as THREE from "three";
 import gsap from "gsap";
 
@@ -8,6 +8,11 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "dat.gui";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
+// on menu clicked
+
+let menuBtn = document.getElementsByClassName("menuBtn");
+let menustate = true;
 
 // scroll trigger
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -21,7 +26,7 @@ const tl = gsap.timeline();
  */
 
 const gui = new dat.GUI({});
-
+gui.destroy();
 const canvas = document.querySelector(".webgl");
 
 ////////////////////////////////////////////////////////////////////////////
@@ -53,8 +58,41 @@ const material = new THREE.MeshBasicMaterial({
  * Adding Light
  */
 const directionalLight = new THREE.DirectionalLight("#ffffff");
-
+gui
+  .add(directionalLight.position, "x", -200, 200, 0.1)
+  .name("DirectionalLight X");
+gui
+  .add(directionalLight.position, "y", -200, 200, 0.1)
+  .name("DirectionalLight X");
+gui
+  .add(directionalLight.position, "z", -200, 200, 0.1)
+  .name("DirectionalLight X");
 scene.add(directionalLight);
+
+////////////////////////////////////////////////////////////////////////////
+// END OF LIGHT
+////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Raycaster
+ */
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+function onPointerMove(event) {
+  // calculate pointer position in normalized device coordinates
+  // (-1 to +1) for both components
+
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  console.log(pointer.x, pointer.y);
+}
+
+////////////////////////////////////////////////////////////////////////////
+// END OF RAYCASTER
+////////////////////////////////////////////////////////////////////////////
 
 /**
  * Lading plane Mesh
@@ -76,57 +114,119 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
     (model) => {
       let plane = model.scene;
       let plane2 = model.scene.clone();
-      console.log(plane2);
+      // console.log(plane2);
       // adding Material
+      console.log(plane);
+
       plane.traverse((data) => {
-        data.material = new THREE.MeshLambertMaterial({
-          color: "#595365",
-          // map: texture,
-        });
+        if (data.isMesh) {
+          console.log();
+          data.material = new THREE.MeshLambertMaterial({
+            color: "#3d404d",
+            transparent: false,
+          });
+        }
+        // data.material = new THREE.MeshLambertMaterial({
+        //   color: "#333547",
+        //   // map: texture,
+        // });
+        // data.material.color = "green";
       });
+
+      // setting positions on clicked
+
+      menuBtn[0].addEventListener("click", (e) => {
+        menustate = !menustate;
+        console.log(menustate);
+        if (menustate === true) {
+          gsap.to(".menu", {
+            x: "100%",
+            ease: "easeInOut",
+          });
+          gsap.to(plane.rotation, {
+            z: 0,
+            y: 0,
+            x: 0,
+            ease: "Power4.easeInOut",
+            duration: 0.8,
+          });
+          gsap.to(plane.position, {
+            z: -1,
+
+            ease: "Power4.easeInOut",
+            duration: 0.8,
+          });
+        } else {
+          gsap.to(".menu", {
+            x: "0%",
+            ease: "Power4.easeInOut",
+          });
+
+          gsap.to(plane.rotation, {
+            z: -1,
+            y: 0.6,
+            x: 0,
+
+            ease: "Power4.easeInOut",
+            duration: 0.8,
+          });
+          gsap.to(plane.position, {
+            z: 10000,
+
+            ease: "Power4.easeInOut",
+            duration: 0.8,
+          });
+        }
+      });
+
       plane2.traverse((data) => {
-        data.material = new THREE.MeshLambertMaterial({
-          color: "#595365",
+        data.material = new THREE.MeshBasicMaterial({
+          // color: "#fefefe",
           wireframe: true,
         });
       });
       plane.position.y = -113;
       plane2.position.y = -113;
 
+      // adding raycaster on plane1
+
+      // calculate objects intersecting the picking ray
+
       // using scroll trigger in plane
 
       tl.to(plane.rotation, {
         scrollTrigger: {
-          trigger: ".chapter__one",
+          trigger: ".scroll__one ",
           start: "0",
           end: "bottom",
           scrub: 3,
-          markers: true,
+          // markers: true,
         },
         x: -2,
       });
       tl.to(plane.rotation, {
         scrollTrigger: {
-          trigger: ".chapter__one",
+          trigger: ".scroll__one ",
           start: "0",
           end: "bottom",
           scrub: 3,
-          markers: true,
+          // markers: true,
         },
         z: -2,
       }).to(plane.position, {
         scrollTrigger: {
-          trigger: ".chapter__one",
+          trigger: ".scroll__one",
           start: "0",
           end: "bottom",
           scrub: 3,
-          markers: true,
+          // markers: true,
         },
         y: 4000,
       });
       // debug
       gui.add(plane.position, "x", -1200, 1200, 1).name("plane position x");
       gui.add(plane.position, "y", -1200, 1200, 1).name("plane position y");
+      gui.add(plane.position, "z", -1200, 1200, 1).name("plane position y");
 
       gui.add(plane.rotation, "x", -360, 360, 3).name("plane rotation x");
       gui.add(plane.rotation, "y", -360, 360, 3).name("plane rotation y");
@@ -136,79 +236,70 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       plane2.position.z = 25000;
       plane2.rotation.z = 19.5;
 
-      tl.to(
-        plane2.position,
-        {
-          scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "3000",
-            end: "bottom ",
-            scrub: 1,
-            markers: true,
-            
-
-          },
-          z: -2500,
+      tl.to(".frame__two", {
+        scrollTrigger: {
+          trigger: ".scroll__two",
+          start: "0",
+          end: "bottom",
+          scrub: 3,
+          // markers: true,
         },
-        " <+3"
-      )
 
-     .to(
-        plane2.rotation,
-        {
+        ease: "linear",
+        zIndex: -100,
+      });
+      tl.to(plane2.position, {
+        scrollTrigger: {
+          trigger: ".scroll__two ",
+          start: "top top",
+          end: "bottom ",
+          scrub: 1,
+          // markers: true,
+        },
+        z: -2500,
+      })
+
+        .to(plane2.rotation, {
           scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "2000",
+            trigger: ".scroll__two",
+            start: "top top ",
             end: "bottom",
             scrub: 3,
-            markers: true,
+            // markers: true,
           },
           y: -1,
-        },
-        " >=3"
-      )
-      .to(
-        plane2.position,
-        {
+        })
+        .to(plane2.position, {
           scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "bottom",
-         
+            trigger: ".scroll__two",
+            start: "top top ",
+            end: "bottom",
+
             scrub: 1,
-            markers: true,
+            // markers: true,
           },
           z: -25000,
-        },
-        ">=6"
-      ) 
-      .to(
-        plane2.position,
-        {
+        })
+        .to(plane2.position, {
           scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "1500",
+            trigger: ".scroll__two",
+            start: "top top",
             end: "bottom",
             scrub: 3,
-            markers: true,
+            // markers: true,
           },
           x: 168,
+        });
+      tl.to(plane2.rotation, {
+        scrollTrigger: {
+          trigger: ".scroll__two",
+          start: "top top",
+          end: "bottom",
+          scrub: 3,
+          // markers: true,
         },
-        ">=3"
-      ) ;
-       tl.to(
-        plane2.rotation,
-        {
-          scrollTrigger: {
-            trigger: ".chapter__one",
-            start: "9000",
-            end: "bottom",
-            scrub: 3,
-            markers: true,
-          },
-          y: -2,
-        },
-        " <=3"
-      );
+        y: -2,
+      });
       // plane2
       gui
         .add(plane2.position, "x", -1200, 1200, 0.000000000001)
@@ -237,8 +328,11 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       const planeOneAnimation = () => {
         const elapsedTime = clockPlane.getElapsedTime();
 
-        // plane.rotation.y = elapsedTime / Math.PI;
-
+        if (menustate === false) {
+          plane.position.x = elapsedTime * Math.PI;
+        }else{
+          plane.position.x = 0;
+        }
         window.requestAnimationFrame(planeOneAnimation);
       };
       planeOneAnimation();
@@ -356,13 +450,13 @@ animate();
 // END OF ANIMATION
 ////////////////////////////////////////////////////////////////////////////
 
-tl.to(".chapter__two", {
+tl.to(".frame__two", {
   scrollTrigger: {
-    trigger: ".chapter__one",
+    trigger: ".scroll__one",
     start: "100",
     end: "bottom",
-    scrub: 3,
-    markers: true,
+    scrub: 1.5,
+    // markers: true,
   },
   scale: 100,
   ease: "linear",
@@ -370,13 +464,89 @@ tl.to(".chapter__two", {
 });
 tl.to(".chaptermid__title", {
   scrollTrigger: {
-    trigger: ".chapter__one",
+    trigger: ".scroll__one",
     start: "0",
     end: "10",
-    scrub: 3,
-    markers: true,
+    scrub: 1.5,
+    // markers: true,
   },
   opacity: 0,
+  fontSize: "109.66px",
   ease: "linear",
   // zIndex: -100,
 });
+
+// calling chapter one
+
+const chapters = gsap.timeline();
+chapters
+  .to(
+    ".chapter__one__title",
+    {
+      scrollTrigger: {
+        trigger: ".scroll__one",
+        start: "200",
+        end: "center",
+        scrub: 1.5,
+        // markers: true,
+      },
+      y: "-10vh",
+
+      ease: "linear",
+    },
+    ">-30"
+  )
+  .to(
+    ".chapter__one__title h3",
+    {
+      scrollTrigger: {
+        trigger: ".scroll__one",
+        start: "100",
+        end: "center",
+        scrub: 1.5,
+        // markers: true,
+      },
+
+      opacity: 1,
+      marginTop: "0vh",
+      ease: "linear",
+    },
+    ">-34"
+  )
+  .to(
+    ".chapter__one__title .chapter__one__line",
+
+    {
+      stagger: {
+        amount: 0.5,
+        each: 1,
+      },
+      scrollTrigger: {
+        trigger: ".scroll__one",
+        start: "200",
+        end: "center",
+        scrub: 1.5,
+        // markers: true,
+      },
+
+      ease: "Power2.easeInOut",
+      scale: 1,
+      opacity: 1,
+    },
+    ">-31"
+  )
+  .to(".chapter__one", {
+    scrollTrigger: {
+      trigger: ".scroll__one",
+      start: "top",
+      end: "+=600%",
+      scrub: 1.5,
+      // markers: true,
+    },
+
+    duration: 4000,
+
+    y: "-100vh",
+    opacity: 0,
+    ease: "linear",
+  });

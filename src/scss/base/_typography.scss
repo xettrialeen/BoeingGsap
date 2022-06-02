@@ -1,6 +1,41 @@
+@font-face {
+  font-family: "VisbyBold";
+  src: url('./FONTS/VisbyBold.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyMedium";
+  src: url('./FONTS/VisbyMedium.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyDemiBold";
+  src: url('./FONTS/VisbyDemiBold.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyHeavy";
+  src: url('./FONTS/VisbyHeavy.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyExtraBold";
+  src: url('./FONTS/VisbyExtraBold.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyLight";
+  src: url('./FONTS/VisbyLight.ttf') format("truetype");
+}
+@font-face {
+  font-family: "VisbyThin";
+  src: url('./FONTS/VisbyThin.ttf') format("truetype");
+}
 
 
-$poppins: "Poppins", sans-serif;
+$visbyBold: "VisbyBold";
+$visbyMedium: "VisbyMedium";
+$visbyDemiBold: "VisbyDemiBold";
+$visbyHeavy: "VisbyHeavy";
+$visbyExtraBold: "VisbyExtraBold";
+$visbyLight: "VisbyLight";
+$visbyThin: "VisbyThin";
+
 
 .typo {
   // todo this is typography with scss
@@ -20,26 +55,26 @@ $poppins: "Poppins", sans-serif;
   &--5 {
     font-size: 9.9px;
   }
-  &__misc--1{
+  &__misc--1 {
     font-size: 20px;
   }
 
-  &__misc--2{
+  &__misc--2 {
     font-size: 48px;
   }
-  &__misc--3{
+  &__misc--3 {
     font-size: 44px;
   }
-  &__misc--4{
+  &__misc--4 {
     font-size: 24px;
   }
-  &__misc--5{
+  &__misc--5 {
     font-size: 18px;
   }
-  &__misc--6{
+  &__misc--6 {
     font-size: 28px;
   }
-  &__heading{
+  &__heading {
     font-size: 40px;
   }
 }
