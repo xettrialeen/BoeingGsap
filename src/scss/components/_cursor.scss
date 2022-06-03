@@ -1,20 +1,78 @@
-// @use "../abstracts/abstract__helpers" as *;
-// @use "../base/base__helpers" as *;
+@use "../abstracts/abstract__helpers" as *;
+@use "../base/base__helpers" as *;
 
-// #circle {
-//   position: absolute ;
-//   transform: translate(-50%, -50%);
-//   height: 16px;
-//   width: 16px;
-//   border-radius: 50%;
-//   border: 6px solid $accent--2;
-//   z-index: 200 !important;
-//   -webkit-transform: translate(-50%, -50%);
-//   -moz-transform: translate(-50%, -50%);
-//   -ms-transform: translate(-50%, -50%);
-//   -o-transform: translate(-50%, -50%);
-//   pointer-events: none;
+.circle {
+  position: absolute;
+  transform: translate(-50%, -50%);
 
-// }
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 7px solid $accent--2;
+  z-index: 200 !important;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  @include flex-row;
+  justify-content: center;
+  align-items: center;
 
+  svg {
+    color: $white;
+  }
+}
 
+.circleActive {
+  width: 16px * 4;
+  height: 16px * 4;
+
+  svg {
+    height: 16px * 2.5;
+    width: 16px * 2.5;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+  background-color: $accent--2;
+  transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -webkit-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -ms-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+}
+.circleRemove {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -webkit-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -ms-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out, width 0.3s ease-in-out,
+    height 0.3s ease-in-out;
+
+  svg {
+    background: transparent;
+
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+}

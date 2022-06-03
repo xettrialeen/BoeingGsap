@@ -17,6 +17,7 @@ let planeState = false;
 
 // scroll trigger
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import { Clock } from "three";
 gsap.registerPlugin(ScrollTrigger);
 
 // gsap animation
@@ -27,7 +28,7 @@ const tl = gsap.timeline();
  */
 
 const gui = new dat.GUI({});
-// gui.destroy();
+gui.destroy();
 const canvas = document.querySelector(".webgl");
 
 ////////////////////////////////////////////////////////////////////////////
@@ -41,18 +42,6 @@ const scene = new THREE.Scene();
 
 ////////////////////////////////////////////////////////////////////////////
 // END OF SCENE
-////////////////////////////////////////////////////////////////////////////
-
-/**
- * Geometry
- */
-const geometry = new THREE.BoxBufferGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({
-  color: "red",
-});
-
-////////////////////////////////////////////////////////////////////////////
-// END OF GEOMETRY
 ////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -99,12 +88,6 @@ function onPointerMove(event) {
  * Lading plane Mesh
  */
 
-// let scrollY = window.scrollY;
-// window.addEventListener("scroll", () => {
-//   scrollY = window.scrollY;
-//   console.log(scrollY / window.innerHeight);
-// });
-
 const loader = new GLTFLoader();
 const texture = new THREE.TextureLoader();
 texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
@@ -113,7 +96,24 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
     // there are two arguments url to load and callback function
     "./plane/scene.gltf",
     (model) => {
-      let plane = model.scene;
+      let modelPlane = model.scene;
+      let plane = model.scene.clone();
+
+      // removing plane if scrolled too much
+
+      let scrollY = window.scrollY;
+      window.addEventListener("scroll", () => {
+        scrollY = window.scrollY;
+        let scrolled = scrollY / window.innerHeight;
+        if (scrolled >= 1.21) {
+          scene.remove(plane);
+        } else if (scrolled <= 0.6) {
+          scene.add(plane);
+        }
+      });
+
+      // for plane 2
+
       let plane2 = model.scene.clone();
       // console.log(plane2);
       // adding Material
@@ -122,6 +122,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       plane.traverse((data) => {
         if (data.isMesh) {
           console.log();
+
           data.material = new THREE.MeshLambertMaterial({
             color: "#3d404d",
             transparent: false,
@@ -138,6 +139,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
 
       menuBtn[0].addEventListener("click", (e) => {
         menustate = !menustate;
+
         planeState = !planeState;
         console.log(menustate);
         if (menustate === true) {
@@ -214,7 +216,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           time = 1;
           let countDown = setInterval(() => {
             if (time >= 0.1) {
-              time -= 1.1;
+              time -= 0.09;
               menuSound[0].volume = time;
             } else {
               clearInterval(countDown);
@@ -223,8 +225,36 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           // making sound level low
           setTimeout(function () {
             menuSound[0].pause();
-          }, 1000);
+          }, 1200);
         }
+
+        // adding plane animation on here
+        let clock = new THREE.Clock(); //
+        var x = document.getElementsByTagName("BODY")[0];
+        const menuAnimate = () => {
+          let elapsedTime = clock.getElapsedTime();
+
+          if (menustate === false) {
+            plane.rotation.x = Math.sin(elapsedTime / Math.PI);
+            plane.position.x = Math.sin(elapsedTime / Math.PI);
+            // plane.position.y = -(elapsedTime * Math.PI);
+            // camera.position.z -= Math.PI * 0.5;
+
+            // lets stop scrolling while clicked menu
+            x.style = `overflow:hidden !important;`;
+          } else {
+            plane.position.x = 0;
+            camera.position.z = 35000;
+            plane.position.y = -113;
+            plane.rotation.x = 0;
+            // lets invert scrolling while clicked menu
+            x.style = `overflow-y:scroll !important;`;
+          }
+
+          // window.requestAnimationFrame(menuAnimate);
+        };
+
+        menuAnimate();
       });
 
       plane2.traverse((data) => {
@@ -258,6 +288,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           start: "0",
           end: "bottom",
           scrub: 3,
+
           // markers: true,
         },
         z: -2,
@@ -375,28 +406,6 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       const clockPlane = new THREE.Clock();
       const planeOneAnimation = () => {
         const elapsedTime = clockPlane.getElapsedTime();
-        var x = document.getElementsByTagName("BODY")[0];
-        if (menustate === false) {
-          if (planeState) {
-            plane.position.x = elapsedTime * Math.PI;
-            plane.position.y = -(elapsedTime * Math.PI);
-            // camera.position.z -= Math.PI * 0.5;
-          } else {
-            plane.position.x = 0;
-            // camera.position.z = 35000;
-            plane.position.y = -113;
-          }
-
-          // lets stop scrolling while clicked menu
-          x.style = `overflow:hidden !important;`;
-        } else {
-          plane.position.x = 0;
-          camera.position.z = 35000;
-          plane.position.y = -113;
-
-          // lets invert scrolling while clicked menu
-          x.style = `overflow-y:scroll !important;`;
-        }
 
         window.requestAnimationFrame(planeOneAnimation);
       };
@@ -615,3 +624,222 @@ chapters
     opacity: 0,
     ease: "linear",
   });
+
+// using gsap for hammenu
+
+let hamMenu = gsap.timeline({
+  repeat: -1,
+  yoyo: true,
+});
+
+gsap.to(
+  ".ball",
+  {
+    width: 5,
+    height: 5,
+    borderRadius: "50%",
+    duration: 0.3,
+    marginBottom: 5,
+    x: 10,
+
+    ease: "easeInOut",
+  },
+  "0"
+);
+hamMenu.fromTo(
+  ".ball",
+  {
+    y: 6,
+
+    duration: 0.86,
+    ease: "linear",
+  },
+  {
+    y: -6,
+
+    duration: 0.86,
+    ease: "linear",
+  },
+  "0"
+);
+
+let batTimeline = gsap.timeline({ repeat: -1, yoyo: true });
+
+let batTwoTimeline = batTimeline;
+batTimeline.fromTo(
+  ".bat__1",
+  {
+    x: 4,
+    ease: "linear",
+ 
+    opacity:0
+  },
+  {
+    x: -4,
+    ease: "linear",
+    duration: 0.88,
+    opacity:1
+  },
+  "0"
+);
+batTwoTimeline.fromTo(
+  ".bat__2",
+  {
+    x: -4,
+    ease: "linear",
+    duration: 0.88,
+    opacity:1
+  },
+  {
+    x: 4,
+    ease: "linear",
+   
+    opacity:0
+  },
+  "0"
+);
+
+
+// .fromTo(
+//   ".bat__1",
+//   {
+
+//   opacity:1,
+//     ease: "Back.easeInOut",
+//   },
+//   {
+
+//   opacity:0.5,
+//     ease: "Back.easeInOut",
+//     duration:0.5
+//   },
+//   "0.8"
+// )
+//   .to(
+//     ".bat__1",
+//     {
+
+//     opacity:1,
+//       ease: "Back.easeInOut",
+//     },
+
+//     "1.3"
+//   )
+//  .to(
+//     ".ball",
+//     {
+//       y:3,
+//       rotateX: 20,
+//       duration: 1,
+//       ease: "linear",
+//     },
+//     "0.99"
+//   )  .fromTo(
+//     ".bat__2",
+//     {
+
+//     opacity:1,
+//       ease: "Back.easeInOut",
+//     },
+//     {
+
+//     opacity:0.5,
+//       ease: "Back.easeInOut",
+//       duration:0.5
+//     },
+//     "1.6"
+//   )
+//   .to(
+//     ".ball",
+//     {
+//       y: -6,
+//       rotateX: 20,
+//       duration: 1.1,
+//       ease: "linear",
+//     },
+//     "1.7"
+//   )
+//   .to(
+//     ".bat__2",
+//     {
+
+//     opacity:1,
+//       ease: "Back.easeInOut",
+//     },
+
+//     "2.2"
+//   )
+//    .to(
+//      ".ball",
+//      {
+//        y: -5,
+//        x: 4,
+//        rotateX: 20,
+//        duration: 1,
+//        ease: "Back.easeInOut",
+//      },
+//      "0.6"
+//    )
+
+//   .to(
+//     ".ball",
+//     {
+//       y: 3.2,
+//       x: 12,
+//       rotateX: 20,
+//       duration: 1,
+//       ease: "linear",
+//     },
+//     "1.28"
+//   )
+//   .to(
+//     ".bat__2",
+//     {
+//       x: -3,
+
+//       duration: 1,
+//       ease: "Back.easeInOut",
+//     },
+//     "1.30"
+//   )
+//   .to(".ball", {
+//     x: 24,
+//     y: -4.8,
+
+//     duration: 1,
+//     ease: "linear",
+//   })
+//   .to(
+//     ".bat__1",
+//     {
+//       x: 6,
+
+//       duration: 0.5,
+//       ease: "linear",
+//     },
+//     "2.1"
+//   )
+//   .to(
+//     ".ball",
+//     {
+//       y: 0.4,
+//       x: 33,
+
+//       duration: 0.5,
+//       ease: "linear",
+//     },
+//     "3.2"
+//   )
+//   .to(
+//     ".ball",
+//     {
+//       y: 4,
+//       x: 28,
+
+//       duration: 0.5,
+//       ease: "linear",
+//     },
+//     "3.8"
+//   )
+
+//   ;

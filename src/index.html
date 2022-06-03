@@ -22,21 +22,25 @@
 
     </audio>
 
-
-    <!-- mouse movement through cursor -->
-    <div id="circle"></div>
+      <!-- mouse movement through cursor -->
+      <div class="circle">
+          <i data-feather="arrow-right"></i>
+      </div>
 
 
     <div class="main__container">
-
+    
         <div class="menu">
+           
+ 
             <div class="menu__container">
+          
                 <nav class="menu__item">
                     <ul>
-                        <li class="active">Home</li>
-                        <li>About</li>
-                        <li>work</li>
-                        <li>Contact</li>
+                        <li class="cursor__hover active">Home</li>
+                        <li class="cursor__hover ">About</li>
+                        <li class="cursor__hover ">work</li>
+                        <li class="cursor__hover ">Contact</li>
                     </ul>
                 </nav>
             </div>
@@ -59,7 +63,12 @@
                 </div>
                 <div class="header__buttons">
                     <button class="notification"><i data-feather="volume-1"></i></button>
-                    <button class="notification menuBtn"><i data-feather="menu"></i></button>
+                    <button class="notification menuBtn ham">
+                        <!-- <i data-feather="volume-1"></i> -->
+                        <span class="break__game bat bat__1 "></span>
+                        <span class="break__game ball"></span>
+                        <span class="break__game bat bat__2"></span>
+                    </button>
                 </div>
             </header>
 

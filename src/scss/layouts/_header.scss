@@ -18,6 +18,7 @@ header {
     }
   }
   .header__buttons {
+    display: flex;
     button {
       @include same-hw(44px);
       outline: none;
@@ -26,7 +27,7 @@ header {
       color: $white;
       border: none;
       position: relative;
-overflow: hidden;
+      overflow: hidden;
       align-items: center;
       justify-content: center;
       cursor: pointer;
@@ -42,7 +43,7 @@ overflow: hidden;
       &:before {
         position: absolute;
         content: "";
-        @includesame-hw(0px):;
+        @include same-hw (0px);
         outline: none;
         @include radius(0px);
         overflow: hidden;
@@ -56,17 +57,44 @@ overflow: hidden;
         -ms-transform: translate(-50%, -50%);
         -o-transform: translate(-50%, -50%);
         @include radius(50%);
-}
-      &:hover{
-        &:before{
+      }
+      &:hover {
+        &:before {
           background-color: $accent;
           @include same-hw(50px);
           outline: none;
           @include radius(15px);
-          opacity:20%;
-
+          opacity: 20%;
         }
       }
     }
   }
+}
+
+// animating hammenu
+.ham {
+padding-left: 8px;
+padding-right: 8px;
+padding-top: 4px;
+
+
+ 
+  .break__game {
+    height: 3px;
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    @include radius(4px);
+  }
+}
+
+
+.ball{
+  transform: translateY(12px);
+  -webkit-transform: translateY(1px);
+  -moz-transform: translateY(1px);
+  -ms-transform: translateY(1px);
+  -o-transform: translateY(1px);
 }
