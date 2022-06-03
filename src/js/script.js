@@ -13,6 +13,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 let menuBtn = document.getElementsByClassName("menuBtn");
 let menustate = true;
+let planeState = false;
 
 // scroll trigger
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
@@ -137,6 +138,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
 
       menuBtn[0].addEventListener("click", (e) => {
         menustate = !menustate;
+        planeState = !planeState;
         console.log(menustate);
         if (menustate === true) {
           gsap.to(".menu", {
@@ -176,6 +178,26 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
             ease: "Power4.easeInOut",
             duration: 0.8,
           });
+        }
+
+        // lets create a music when toggled
+        let menuSound = document.getElementsByClassName("MenuClickedAudio");
+
+        menuSound.loop = true;
+
+        if (menustate === false) {
+          menuSound[0].play();
+        } else {
+
+
+          for (let i = 0; i < 1; i--) {
+            menuSound[0].volume= i;
+            
+          }
+          // making sound level low
+          setTimeout(function () {
+            menuSound[0].pause();
+          }, 5000);
         }
       });
 
@@ -329,9 +351,15 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
         const elapsedTime = clockPlane.getElapsedTime();
         var x = document.getElementsByTagName("BODY")[0];
         if (menustate === false) {
-          plane.position.x = elapsedTime * Math.PI;
-          plane.position.y = -(elapsedTime * Math.PI);
-          camera.position.z -= Math.PI * 0.5;
+          if (planeState) {
+            plane.position.x = elapsedTime * Math.PI;
+            plane.position.y = -(elapsedTime * Math.PI);
+            camera.position.z -= Math.PI * 0.5;
+          } else {
+            plane.position.x = 0;
+            camera.position.z = 35000;
+            plane.position.y = -113;
+          }
 
           // lets stop scrolling while clicked menu
           x.style = `overflow:hidden !important;`;
@@ -342,21 +370,6 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
 
           // lets invert scrolling while clicked menu
           x.style = `overflow-y:scroll !important;`;
-        }
-
-        // lets create a music when toggled
-        let menuSound = document.getElementsByClassName("MenuClickedAudio");
-
-        menuSound.loop = true;
-
-        if (menustate === false) {
-          menuSound[0].play();
-
-          setTimeout(() => {
-            
-          }, 500);
-        } else {
-          menuSound[0].pause();
         }
 
         window.requestAnimationFrame(planeOneAnimation);
