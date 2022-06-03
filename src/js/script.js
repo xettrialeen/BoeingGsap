@@ -27,7 +27,7 @@ const tl = gsap.timeline();
  */
 
 const gui = new dat.GUI({});
-gui.destroy();
+// gui.destroy();
 const canvas = document.querySelector(".webgl");
 
 ////////////////////////////////////////////////////////////////////////////
@@ -182,22 +182,48 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
 
         // lets create a music when toggled
         let menuSound = document.getElementsByClassName("MenuClickedAudio");
-
+        let time;
         menuSound.loop = true;
 
         if (menustate === false) {
           menuSound[0].play();
+          time = 0;
+          let countDown = setInterval(() => {
+            if (time <= 0.99) {
+              time += 0.1;
+              menuSound[0].volume = time;
+            } else {
+              clearInterval(countDown);
+            }
+          }, 100);
+          // making sound level low
+          setTimeout(function () {
+            menuSound[0].play();
+          }, 2500);
         } else {
+          // for (let i = 1; i > 0 ; i-=0.1) {
+          //   if (i>=0) {
 
+          //     menuSound[0].volume = i;
 
-          for (let i = 0; i < 1; i--) {
-            menuSound[0].volume= i;
-            
-          }
+          //   }else{
+          //     break;
+          //   }
+          //   console.log(menuSound[0].volume);
+          // }
+          time = 1;
+          let countDown = setInterval(() => {
+            if (time >= 0.1) {
+              time -= 1.1;
+              menuSound[0].volume = time;
+            } else {
+              clearInterval(countDown);
+            }
+          }, 100);
           // making sound level low
           setTimeout(function () {
             menuSound[0].pause();
-          }, 5000);
+          }, 1000);
         }
       });
 
@@ -354,10 +380,10 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           if (planeState) {
             plane.position.x = elapsedTime * Math.PI;
             plane.position.y = -(elapsedTime * Math.PI);
-            camera.position.z -= Math.PI * 0.5;
+            // camera.position.z -= Math.PI * 0.5;
           } else {
             plane.position.x = 0;
-            camera.position.z = 35000;
+            // camera.position.z = 35000;
             plane.position.y = -113;
           }
 
