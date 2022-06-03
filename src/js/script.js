@@ -202,17 +202,35 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
           setTimeout(function () {
             menuSound[0].play();
           }, 2500);
+
+
+          // for planne Mesh
+
+          plane.traverse((data) => {
+            if (data.isMesh) {
+              console.log();
+    
+          
+              data.material = new THREE.MeshToonMaterial({
+                color: "#3d404d",
+                transparent: false,
+              });
+         
+          }});
+
         } else {
-          // for (let i = 1; i > 0 ; i-=0.1) {
-          //   if (i>=0) {
-
-          //     menuSound[0].volume = i;
-
-          //   }else{
-          //     break;
-          //   }
-          //   console.log(menuSound[0].volume);
-          // }
+          plane.traverse((data) => {
+            if (data.isMesh) {
+              console.log();
+    
+             
+       
+                data.material = new THREE.MeshLambertMaterial({
+                  color: "#3d404d",
+                  transparent: false,
+         
+              });
+          }});
           time = 1;
           let countDown = setInterval(() => {
             if (time >= 0.1) {
