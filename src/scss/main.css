@@ -437,6 +437,11 @@ header .header__buttons button:hover:before {
   -o-border-radius: 50%;
 }
 
+audio {
+  opacity: 0;
+  visibility: hidden;
+}
+
 body {
   background-color: #f4eee6;
 }

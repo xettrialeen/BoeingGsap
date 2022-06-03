@@ -4,10 +4,16 @@ window.onload = () => {
   console.log(notification);
   notification.forEach((event) => {
     event.addEventListener("click", () => {
-      let notSound = new Audio("./sound/click.mp3");
-      notSound.play();
+      let notSound = document.getElementsByClassName("NotificationSound");
+
+
+      notSound[0].play();
     });
   });
+
+
+
+
 };
 
 
@@ -44,3 +50,5 @@ window.onload = () => {
 //   mouseX = event.pageX;
 //   mouseY = event.pageY;
 // })
+
+

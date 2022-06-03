@@ -327,12 +327,38 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
       const clockPlane = new THREE.Clock();
       const planeOneAnimation = () => {
         const elapsedTime = clockPlane.getElapsedTime();
-
+        var x = document.getElementsByTagName("BODY")[0];
         if (menustate === false) {
           plane.position.x = elapsedTime * Math.PI;
-        }else{
+          plane.position.y = -(elapsedTime * Math.PI);
+          camera.position.z -= Math.PI * 0.5;
+
+          // lets stop scrolling while clicked menu
+          x.style = `overflow:hidden !important;`;
+        } else {
           plane.position.x = 0;
+          camera.position.z = 35000;
+          plane.position.y = -113;
+
+          // lets invert scrolling while clicked menu
+          x.style = `overflow-y:scroll !important;`;
         }
+
+        // lets create a music when toggled
+        let menuSound = document.getElementsByClassName("MenuClickedAudio");
+
+        menuSound.loop = true;
+
+        if (menustate === false) {
+          menuSound[0].play();
+
+          setTimeout(() => {
+            
+          }, 500);
+        } else {
+          menuSound[0].pause();
+        }
+
         window.requestAnimationFrame(planeOneAnimation);
       };
       planeOneAnimation();
