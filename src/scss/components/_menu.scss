@@ -3,37 +3,38 @@
 .menu {
   background: white;
   bottom: 0px;
-  position: relative;
-//   visibility: hidden;
+
   box-sizing: border-box;
   color: #091434;
   display: flex;
   flex-direction: column;
   font-family: Poppins, sans-serif;
   height: 100%;
-  left: 1154px;
+  // left: 1154px;
   margin: 0px;
-  max-width: 45vw;
+  width: 25vw;
   padding: 0px;
   position: fixed;
   right: 0px;
   top: 0px;
-  transition: left 0.9s cubic-bezier(0.6, 0, 0.4, 1) 0s,    right 0.9s cubic-bezier(0.6, 0, 0.4, 1) 0s;
+  transition: left 0.9s cubic-bezier(0.6, 0, 0.4, 1) 0s,
+    right 0.9s cubic-bezier(0.6, 0, 0.4, 1) 0s;
   width: -382px;
   z-index: 2;
-overflow: hidden;
-  transform: translateX(100%) ;
-  -webkit-transform: translateX(100%) ;
-  -moz-transform: translateX(100%) ;
-  -ms-transform: translateX(100%) ;
-  -o-transform: translateX(100%) ;
+  overflow: hidden;
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
 
-  .menu__container{
-      padding: 0px 20px;
+  .menu__container {
+    padding: 0px 20px;
+    position: relative;
   }
-    .menu__item
-{
+  .menu__item {
     margin-top: 160px;
+    position: absolute;
     ul {
       li {
         border-radius: 15px;
@@ -53,6 +54,8 @@ overflow: hidden;
         transform: translateX(28px);
         width: fit-content;
         margin-bottom: 44px;
+
+        position: relative;
       }
 
       .active {
@@ -75,14 +78,38 @@ overflow: hidden;
   }
 }
 
-
-audio{
+audio {
   opacity: 0;
   visibility: hidden;
   // position: absolute;
   // z-index: 1000;
 }
 
-
 // animating hammenu
 
+.marquee__container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  // background-color: $accent--2;
+  z-index: -1;
+  left: 0px;
+  // opacity: 20%;
+
+  marquee {
+    font-family: $visbyHeavy;
+    color: aliceblue;
+    width: 100%;
+    -moz-animation: marquee 5s linear infinite;
+    -webkit-animation: marquee 5s linear infinite;
+    animation: marquee 5s linear infinite;
+    font-size: 700px;
+    opacity: 50%;
+    position: relative;
+  }
+
+  .marquees {
+    visibility: hidden;
+    position: absolute;
+  }
+}

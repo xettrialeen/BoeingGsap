@@ -2,6 +2,8 @@ import "../scss/main.css";
 import * as THREE from "three";
 import gsap from "gsap";
 
+
+
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -203,34 +205,29 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
             menuSound[0].play();
           }, 2500);
 
-
           // for planne Mesh
 
           plane.traverse((data) => {
             if (data.isMesh) {
               console.log();
-    
-          
+
               data.material = new THREE.MeshToonMaterial({
                 color: "#3d404d",
                 transparent: false,
               });
-         
-          }});
-
+            }
+          });
         } else {
           plane.traverse((data) => {
             if (data.isMesh) {
               console.log();
-    
-             
-       
-                data.material = new THREE.MeshLambertMaterial({
-                  color: "#3d404d",
-                  transparent: false,
-         
+
+              data.material = new THREE.MeshLambertMaterial({
+                color: "#3d404d",
+                transparent: false,
               });
-          }});
+            }
+          });
           time = 1;
           let countDown = setInterval(() => {
             if (time >= 0.1) {
@@ -668,7 +665,7 @@ hamMenu.fromTo(
   ".ball",
   {
     y: 4.5,
-  
+
     duration: 0.88,
     ease: "linear",
   },
@@ -689,14 +686,14 @@ batTimeline.fromTo(
   {
     x: 3,
     ease: "linear",
-   
-    opacity:0
+
+    opacity: 0,
   },
   {
     x: -3,
     ease: "linear",
     duration: 0.91,
-    opacity:1
+    opacity: 1,
   },
   "0"
 );
@@ -706,17 +703,16 @@ batTwoTimeline.fromTo(
     x: -3,
     ease: "linear",
 
-    opacity:1
+    opacity: 1,
   },
   {
     x: 3,
     ease: "linear",
     duration: 0.91,
-    opacity:0
+    opacity: 0,
   },
   "0"
 );
-
 
 // .fromTo(
 //   ".bat__1",
@@ -862,28 +858,92 @@ batTwoTimeline.fromTo(
 
 //   ;
 
+// change title on key pressed
+let title = document.querySelector("title");
+let titleArray = [
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "_",
+  "✈️",
+];
+title.innerHTML = "";
+titleArray.forEach((e) => {
+  title.append(e);
+});
+// let airplaneData = "_______________✈️";
+
+// let airplaneModified = airplaneData.length - 2;
+
+// console.log(airplaneData.indexOf("✈️"));
+
+Array.prototype.move = function (from, to) {
+  this.splice(to, 0, this.splice(from, 1)[0]);
+  return this;
+};
+
+let planeTime = new THREE.Clock();
+
+function planeTabAnimate(params) {
+  title.innerHTML = titleArray.move(20, 0).join("");
+}
+
+setInterval(planeTabAnimate, 500);
+planeTabAnimate();
+
+document.addEventListener("keydown", (f) => {
+  if (f.key == "ArrowLeft") {
+    // titleArray.shift();
+    // });
+  }
+  // if (f.key == "ArrowRight") {
+  //   title.innerHTML = titleArray.move(15,14).join('');
+  // }
+});
+
+// menu nav link on hover
 
 
+let navLink = document.querySelectorAll(".cursor__hover ");
+let marqueeAnime = gsap.timeline({
+  
+});
 
 
+let marquee = document.getElementsByClassName("marquees");
+navLink.forEach((e, index) => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  e.addEventListener("mouseenter", (f) => {
+    marqueeAnime.to(".marContainer", {
+ backgroundColor:"#ffcc8f",
+       duration: 0.3,
+       ease: "linear",
+       
+     });
+    marquee[index].style = "visibility: visible";
+  });
+  e.addEventListener("mouseleave", (f) => {
+    marqueeAnime.to(".marContainer", {
+backgroundColor:"#ffffff",
+       duration: 0.3,
+       ease: "linear",
+       
+     });
+    marquee[index].style = "visibility: hidden";
+  });
+});
