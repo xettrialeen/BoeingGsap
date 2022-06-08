@@ -125,9 +125,11 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
         if (data.isMesh) {
           console.log();
 
-          data.material = new THREE.MeshLambertMaterial({
+          data.material = new THREE.MeshPhongMaterial({
             color: "#3d404d",
             transparent: false,
+            depthWrite:false,
+      
           });
         }
         // data.material = new THREE.MeshLambertMaterial({
@@ -225,6 +227,8 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
               data.material = new THREE.MeshLambertMaterial({
                 color: "#3d404d",
                 transparent: false,
+                depthWrite: false,
+                depthTest: true,
               });
             }
           });
@@ -861,26 +865,17 @@ batTwoTimeline.fromTo(
 // change title on key pressed
 let title = document.querySelector("title");
 let titleArray = [
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "_",
-  "✈️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "☁️",
+  "🛩️",
 ];
 title.innerHTML = "";
 titleArray.forEach((e) => {
@@ -900,21 +895,13 @@ Array.prototype.move = function (from, to) {
 let planeTime = new THREE.Clock();
 
 function planeTabAnimate(params) {
-  title.innerHTML = titleArray.move(20, 0).join("");
+  title.innerHTML = titleArray.move(10, 0).join("");
 }
 
-setInterval(planeTabAnimate, 500);
+setInterval(planeTabAnimate, 700);
 planeTabAnimate();
 
-document.addEventListener("keydown", (f) => {
-  if (f.key == "ArrowLeft") {
-    // titleArray.shift();
-    // });
-  }
-  // if (f.key == "ArrowRight") {
-  //   title.innerHTML = titleArray.move(15,14).join('');
-  // }
-});
+
 
 // menu nav link on hover
 

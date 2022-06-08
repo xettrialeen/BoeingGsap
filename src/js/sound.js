@@ -53,6 +53,7 @@ menu.addEventListener("mouseleave", function (event) {
   ball.style = `visibility: hidden; opacity:0;  transition:all 0.3 ease-in-out;`;
 });
 
+// menu nav link on hover
 let navLink = document.querySelectorAll(".cursor__hover ");
 
 for (const i of navLink) {
@@ -82,16 +83,5 @@ for (const i of navLink) {
 
 // })
 
-// menu nav link on hover
-let marquee = document.getElementsByClassName("marquees");
-navLink.forEach((e, index) => {
-  console.log(index);
-  e.addEventListener("mouseenter", (f) => {
-    console.log("mouse entered", f);
-    marquee[index].style = "visibility: visible";
-  });
-  e.addEventListener("mouseleave", (f) => {
-    console.log("mouse entered", f);
-    marquee[index].style = "visibility: hidden";
-  });
-});
+
+

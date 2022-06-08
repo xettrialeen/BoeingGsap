@@ -56,6 +56,17 @@
         margin-bottom: 44px;
 
         position: relative;
+
+        &:hover {
+          color: $white;
+          font-size: 28.8px * 1.1;
+          transform: translatex(40px);
+          -webkit-transform: translatex(40px);
+          -moz-transform: translatex(40px);
+          -ms-transform: translatex(40px);
+          -o-transform: translatex(40px);
+        }
+        @include trans(all);
       }
 
       .active {
@@ -86,7 +97,7 @@ audio {
 }
 
 // animating hammenu
-
+$steps: 50;
 .marquee__container {
   width: 100%;
   height: 100vh;
@@ -95,21 +106,64 @@ audio {
   z-index: -1;
   left: 0px;
   // opacity: 20%;
-
+  $font: "Roboto", monospace;
+  overflow: hidden;
   marquee {
     font-family: $visbyHeavy;
     color: aliceblue;
     width: 100%;
+    height: 100%;
     -moz-animation: marquee 5s linear infinite;
-    -webkit-animation: marquee 5s linear infinite;
+    -webkit-animation: cray 10s infinite steps($steps);
     animation: marquee 5s linear infinite;
     font-size: 700px;
-    opacity: 50%;
+    opacity: 30%;
     position: relative;
+    animation: cray 10s infinite steps($steps);
+    display: inline-block;
+    transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
   }
 
   .marquees {
     visibility: hidden;
     position: absolute;
+  }
+}
+
+@keyframes cray {
+  @for $i from 1 to $steps {
+    $per: 100% / $steps * $i;
+    $weight: (100, 200, 300, 400, 500, 600, 700);
+    $style: (normal, italic, normal, normal);
+    $decor: (none, none, line-through, underline, none, none, none);
+    $trans: (
+      none,
+      none,
+      uppercase,
+      lowercase,
+      capitalize,
+      none,
+      none,
+      none,
+      none,
+      none,
+      none
+    );
+
+    $arrayW: random(7);
+    $arrayS: random(4);
+    $arrayD: random(7);
+    $arrayT: random(11);
+
+    #{$per} {
+      font-weight: nth($weight, $arrayW);
+      font-style: nth($style, $arrayS);
+      text-decoration: nth($decor, $arrayD);
+      text-transform: nth($trans, $arrayT);
+    }
   }
 }
