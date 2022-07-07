@@ -1,71 +1,71 @@
-window.onload = () => {
-  // init the notification
-  let notification = document.querySelectorAll(".notification");
-  //   console.log(notification);
-  notification.forEach((event) => {
-    event.addEventListener("click", () => {
-      let notSound = document.getElementsByClassName("NotificationSound");
+// window.onload = () => {
+//   // init the notification
+//   let notification = document.querySelectorAll(".notification");
+//   //   console.log(notification);
+//   notification.forEach((event) => {
+//     event.addEventListener("click", () => {
+//       let notSound = document.getElementsByClassName("NotificationSound");
 
-      notSound[0].play();
-    });
-  });
-};
+//       notSound[0].play();
+//     });
+//   });
+// };
 
-// movieng Cursor
+// // movieng Cursor
 
-const ball = document.querySelector(".circle");
+// const ball = document.querySelector(".circle");
 
-let mouseX = 1480;
-let mouseY = 120;
+// let mouseX = 1480;
+// let mouseY = 120;
 
-let ballX = 0;
-let ballY = 0;
+// let ballX = 0;
+// let ballY = 0;
 
-let speed = 0.06;
+// let speed = 0.06;
 
-function animate() {
-  let distX = mouseX - ballX;
-  let distY = mouseY - ballY;
+// function animate() {
+//   let distX = mouseX - ballX;
+//   let distY = mouseY - ballY;
 
-  ballX = ballX + distX * speed;
-  ballY = ballY + distY * speed;
+//   ballX = ballX + distX * speed;
+//   ballY = ballY + distY * speed;
 
-  ball.style.left = ballX + "px";
-  ball.style.top = ballY + "px";
+//   ball.style.left = ballX + "px";
+//   ball.style.top = ballY + "px";
 
-  requestAnimationFrame(animate);
-}
-animate();
+//   requestAnimationFrame(animate);
+// }
+// animate();
 
-let menu = document.querySelector(".menu");
-menu.addEventListener("mousemove", function (event) {
-  mouseX = event.pageX;
-  mouseY = event.pageY;
-});
-// menu.addEventListener("mouseleave", function (event) {
-//   ball.style = `visibility: hidden; opacity:0; transition:all 0.3 ease-in-out;`;
-
+// let menu = document.querySelector(".menu");
+// menu.addEventListener("mousemove", function (event) {
+//   mouseX = event.pageX;
+//   mouseY = event.pageY;
 // });
-menu.addEventListener("mouseenter", function (event) {
-  ball.style = `visibility: visible; opacity:1;  transition:all 0.3 ease-in-out;`;
-});
-menu.addEventListener("mouseleave", function (event) {
-  ball.style = `visibility: hidden; opacity:0;  transition:all 0.3 ease-in-out;`;
-});
+// // menu.addEventListener("mouseleave", function (event) {
+// //   ball.style = `visibility: hidden; opacity:0; transition:all 0.3 ease-in-out;`;
 
-// menu nav link on hover
-let navLink = document.querySelectorAll(".cursor__hover ");
+// // });
+// menu.addEventListener("mouseenter", function (event) {
+//   ball.style = `visibility: visible; opacity:1;  transition:all 0.3 ease-in-out;`;
+// });
+// menu.addEventListener("mouseleave", function (event) {
+//   ball.style = `visibility: hidden; opacity:0;  transition:all 0.3 ease-in-out;`;
+// });
 
-for (const i of navLink) {
-  i.addEventListener("mouseenter", () => {
-    ball.classList.add("circleActive");
-    ball.classList.remove("circleRemove");
-  });
-  i.addEventListener("mouseleave", () => {
-    ball.classList.add("circleRemove");
-    ball.classList.remove("circleActive");
-  });
-}
+// // menu nav link on hover
+// let navLink = document.querySelectorAll(".cursor__hover ");
+
+// for (const i of navLink) {
+//   i.addEventListener("mouseenter", () => {
+//     ball.classList.add("circleActive");
+//     ball.classList.remove("circleRemove");
+//   });
+//   i.addEventListener("mouseleave", () => {
+//     ball.classList.add("circleRemove");
+//     ball.classList.remove("circleActive");
+//   });
+// }
 // navLink.foreach((e) => {
 //   e.addEventListener("mouseenter", () => {
 //     console.log(e);
