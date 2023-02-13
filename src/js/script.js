@@ -203,6 +203,7 @@ texture.load("./plane/textures/Material_baseColor.jpeg", (texture) => {
             }
           }, 100);
           // making sound level low
+          console.log("played");
           setTimeout(function () {
             menuSound[0].play();
           }, 2500);
